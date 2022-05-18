@@ -37,11 +37,10 @@ public class DataListener extends Thread {
                 input = clientSocket.getInputStream();
                 ObjectInputStream objectInputStream = new ObjectInputStream(input);
                 EventReceive eventReceive = new EventReceive(this, clientSocket, objectInputStream.readObject());
-                objectInputStream.close();
                 dispatchOnReceive(eventReceive);
             }
         } catch (ClassNotFoundException | IOException e) {
-//            this.close();
+            this.close();
 //            throw new RuntimeException(e);
         }
     }

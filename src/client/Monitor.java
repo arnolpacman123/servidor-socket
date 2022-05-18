@@ -3,10 +3,7 @@ package client;
 import models.Data;
 
 import models.DataClient;
-import server.events.EventConnection;
-import server.events.EventDisconnection;
-import server.events.EventReceive;
-import server.events.EventSend;
+import server.events.*;
 import server.interfaces.SocketListenerI;
 
 import java.io.*;

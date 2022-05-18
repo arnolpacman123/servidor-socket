@@ -73,8 +73,8 @@ public class Server implements SocketListenerI {
             objectOutputStream.writeObject(data);
     //            output = new DataOutputStream(clientSocket.getOutputStream());
     //            output.writeUTF(message);
-            output.flush();
-            output.close();
+//            output.flush();
+//            output.close();
         } catch (IOException e) {
             try {
                 output.close();
@@ -87,7 +87,9 @@ public class Server implements SocketListenerI {
 
     @Override
     public void onReceiveMessage(EventReceive e) {
-        sendMessage(e.getDataClient().getId(), new Data(e.getDataClient().getTemperature(), e.getDataClient().getHumidity()));
+        String id = e.getDataClient().getId();
+        Data data = new Data(e.getDataClient().getTemperature(), e.getDataClient().getHumidity());
+        sendMessage(id, data);
         System.out.println(e.getDataClient().getId());
         System.out.println(e.getDataClient().getTemperature());
         System.out.println(e.getDataClient().getHumidity());
