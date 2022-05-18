@@ -71,10 +71,7 @@ public class Server implements SocketListenerI {
             output = clientSocket.getOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(output);
             objectOutputStream.writeObject(data);
-    //            output = new DataOutputStream(clientSocket.getOutputStream());
-    //            output.writeUTF(message);
-//            output.flush();
-//            output.close();
+            output.flush();
         } catch (IOException e) {
             try {
                 output.close();
