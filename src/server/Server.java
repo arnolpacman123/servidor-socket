@@ -40,6 +40,8 @@ public class Server implements SocketListenerI {
     public void onClientConnect(EventConnection e) {
         DataListener dataListener = new DataListener(e.getClient().getClientSocket());
         dataListener.addDataListener(this);
+        Monitor monitor = new Monitor();
+        dataListener.addDataListener(monitor);
         dataListener.start();
         ThreadInfo threadInfo = new ThreadInfo(e.getClient().getClientSocket(), dataListener);
         this.clientsConnected.put(e.getClient().getId(), threadInfo);
@@ -50,6 +52,9 @@ public class Server implements SocketListenerI {
     @Override
     public void onClientDisconnect(EventDisconnection e) {
         System.out.println("Un cliente se desconecto");
+        ThreadInfo threadInfo = clientsConnected.get(e.getClient().getId());
+        threadInfo.getDataListener().interrupt();
+        threadInfo.getDataListener().removeDataListener(this);
         this.clientsConnected.remove(e.getClient().getId());
         System.out.println("Clientes conectados: " + this.clientsConnected.size());
     }
@@ -84,11 +89,11 @@ public class Server implements SocketListenerI {
 
     @Override
     public void onReceiveMessage(EventReceive e) {
-        String id = e.getDataClient().getId();
-        Data data = new Data(e.getDataClient().getTemperature(), e.getDataClient().getHumidity());
-        sendMessage(id, data);
-        System.out.println(e.getDataClient().getId());
-        System.out.println(e.getDataClient().getTemperature());
-        System.out.println(e.getDataClient().getHumidity());
+//        String id = e.getDataClient().getId();
+//        Data data = new Data(e.getDataClient().getTemperature(), e.getDataClient().getHumidity());
+//        sendMessage(id, data);
+//        System.out.println(e.getDataClient().getId());
+//        System.out.println(e.getDataClient().getTemperature());
+//        System.out.println(e.getDataClient().getHumidity());
     }
 }

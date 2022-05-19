@@ -41,7 +41,6 @@ public class DataListener extends Thread {
             }
         } catch (ClassNotFoundException | IOException e) {
             this.close();
-//            throw new RuntimeException(e);
         }
     }
 
